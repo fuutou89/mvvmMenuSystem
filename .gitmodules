@@ -1,0 +1,9 @@
+[submodule "Plugins/uFrameCore"]
+	path = Plugins/uFrameCore
+	url = https://github.com/uFrame/Core.git
+[submodule "Plugins/uFrameArchitect"]
+	path = Plugins/uFrameArchitect
+	url = https://github.com/uFrame/Architect.git
+[submodule "Plugins/uFrameMVVM"]
+	path = Plugins/uFrameMVVM
+	url = https://github.com/uFrame/MVVM.git
