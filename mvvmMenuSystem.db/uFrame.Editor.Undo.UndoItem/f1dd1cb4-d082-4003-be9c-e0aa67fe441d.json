@@ -1,0 +1,8 @@
+{
+	"Identifier":"f1dd1cb4-d082-4003-be9c-e0aa67fe441d"	, 
+	"Time":"7/13/2016 5:18:00 PM"	, 
+	"Group":17180	, 
+	"DataRecordId":"45ac1e60-eabd-4a55-9e07-74c9ff9eebd9"	, 
+	"Type":2	, 
+	"RecordType":"uFrame.MVVM.CommandsChildItem, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"Name\":\"ShowPanel\"\t, \r\n\t\"RelatedType\":\"Void\"\t, \r\n\t\"Identifier\":\"45ac1e60-eabd-4a55-9e07-74c9ff9eebd9\"\t, \r\n\t\"NodeId\":\"ec012b39-6fc7-4fa0-9223-41fcb32d9b16\"\t, \r\n\t\"Order\":0}\r\n"}

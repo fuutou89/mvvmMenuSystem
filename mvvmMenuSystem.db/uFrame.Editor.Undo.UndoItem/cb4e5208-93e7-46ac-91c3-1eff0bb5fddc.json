@@ -1,0 +1,8 @@
+{
+	"Identifier":"cb4e5208-93e7-46ac-91c3-1eff0bb5fddc"	, 
+	"Time":"7/13/2016 5:23:57 PM"	, 
+	"Group":172357	, 
+	"DataRecordId":"23d95ff4-1a52-4836-9cff-9b308b65428f"	, 
+	"Type":2	, 
+	"RecordType":"uFrame.MVVM.CommandsChildItem, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
+	"Data":"{\r\n\t\"Name\":\"FocusPanel\"\t, \r\n\t\"RelatedType\":\"Void\"\t, \r\n\t\"Identifier\":\"23d95ff4-1a52-4836-9cff-9b308b65428f\"\t, \r\n\t\"NodeId\":\"ec012b39-6fc7-4fa0-9223-41fcb32d9b16\"\t, \r\n\t\"Order\":0}\r\n"}
