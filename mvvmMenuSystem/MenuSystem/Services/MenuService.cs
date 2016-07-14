@@ -76,70 +76,83 @@ namespace mvvmMenuSystem
         {
             base.CreateLoadingCommandHandler(data);
 
-            //if (string.IsNullOrEmpty(MenuRoot.m_LoadingPanelName))
-            //{
-            //    LoadFirstScreen();
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(MenuRoot.m_LoadingPanelName))
+            {
+                LoadFirstScreen();
+                return;
+            }
 
-            //if (MenuRoot.loadingTop == null)
-            //{
-            //    PanelViewModel loadingPanel = panelController.CreatePanelViewModel();
-            //    loadingPanel.posIndex = MenuConst.SHIELD_TOP_INDEX;
-            //    loadingPanel.depthIndex = MenuConst.SHIELD_TOP_INDEX;
-            //    MenuRoot.loadingTop = loadingPanel;
-            //    LoadFirstScreen();
-            //}
+            if (MenuRoot.loadingTop == null)
+            {
+                PanelViewModel loadingPanel = panelController.CreatePanel();
+                loadingPanel.posIndex = MenuConst.SHIELD_TOP_INDEX;
+                loadingPanel.depthIndex = MenuConst.SHIELD_TOP_INDEX;
+                MenuRoot.loadingTop = loadingPanel;
+                LoadFirstScreen();
+            }
+        }
+
+        private void LoadFirstScreen()
+        {
+            if (!string.IsNullOrEmpty(MenuRoot.m_FirstScreenName))
+            {
+                StartCoroutine(IEScreen(MenuRoot.m_FirstScreenName));
+            }
         }
 
         /// <sumarry>
         // This method is executed when using this.Publish(new OpenScreenCommand())
         /// </sumarry>
-        public override void OpenScreenCommandHandler(OpenScreenCommand data)
+        public override void OpenScreenCommandHandler(OpenScreenCommand cmd)
         {
-            base.OpenScreenCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.OpenScreenCommandHandler(cmd);
+            StartCoroutine(IEScreen(cmd.panelName, cmd.data, cmd.onActive, cmd.onDeactive));
         }
 
         /// <sumarry>
-        // This method is executed when using this.Publish(new DestoryInactivePanelsCommand())
+        // This method is executed when using this.Publish(new OpenSubScreenCommand())
         /// </sumarry>
-        public override void DestoryInactivePanelsCommandHandler(DestoryInactivePanelsCommand data)
+        public override void OpenSubScreenCommandHandler(OpenSubScreenCommand cmd)
         {
-            base.DestoryInactivePanelsCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.OpenSubScreenCommandHandler(cmd);
+            StartCoroutine(IESubScreen(cmd.panelName, cmd.data, cmd.onActive, cmd.onDeactive));
         }
 
         /// <sumarry>
-        // This method is executed when using this.Publish(new HideMainMenuCommand())
+        // This method is executed when using this.Publish(new OpenPopupCommand())
         /// </sumarry>
-        public override void HideMainMenuCommandHandler(HideMainMenuCommand data)
+        public override void OpenPopupCommandHandler(OpenPopupCommand cmd)
         {
-            base.HideMainMenuCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.OpenPopupCommandHandler(cmd);
+            StartCoroutine(IEPopUp(cmd.panelName, cmd.data, cmd.onActive, cmd.onDeactive));
         }
 
         /// <sumarry>
-        // This method is executed when using this.Publish(new PreLoadPanelCommand())
+        // This method is executed when using this.Publish(new OpenMainMenuCommand())
         /// </sumarry>
-        public override void PreLoadPanelCommandHandler(PreLoadPanelCommand data)
+        public override void OpenMainMenuCommandHandler(OpenMainMenuCommand cmd)
         {
-            base.PreLoadPanelCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.OpenMainMenuCommandHandler(cmd);
+            StartCoroutine(IEMainMenu(cmd.panelName, cmd.data, cmd.onActive, cmd.onDeactive));
         }
 
         /// <sumarry>
         // This method is executed when using this.Publish(new ClosePanelCommand())
         /// </sumarry>
-        public override void ClosePanelCommandHandler(ClosePanelCommand data)
+        public override void ClosePanelCommandHandler(ClosePanelCommand cmd)
         {
-            base.ClosePanelCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.ClosePanelCommandHandler(cmd);
+            StartCoroutine(IEClose(cmd.immediate, cmd.callback));
+        }
+
+        /// <sumarry>
+        // This method is executed when using this.Publish(new ResetPanelCommand())
+        /// </sumarry>
+        public override void ResetPanelCommandHandler(ResetPanelCommand cmd)
+        {
+            base.ResetPanelCommandHandler(cmd);
+            string menuName = DestroyCurrentStack();
+            StartCoroutine(IEScreen(menuName, cmd.data, cmd.onActive, cmd.onDeactive));
         }
 
         /// <sumarry>
@@ -148,50 +161,22 @@ namespace mvvmMenuSystem
         public override void ShowMainMenuCommandHandler(ShowMainMenuCommand data)
         {
             base.ShowMainMenuCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            if (MenuRoot.mainMenu != null)
+            {
+                MenuRoot.mainMenu.isActive = true;
+            }
         }
 
         /// <sumarry>
-        // This method is executed when using this.Publish(new OpenMainMenuCommand())
+        // This method is executed when using this.Publish(new HideMainMenuCommand())
         /// </sumarry>
-        public override void OpenMainMenuCommandHandler(OpenMainMenuCommand data)
+        public override void HideMainMenuCommandHandler(HideMainMenuCommand data)
         {
-            base.OpenMainMenuCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
-        }
-
-
-
-        /// <sumarry>
-        // This method is executed when using this.Publish(new ShowLoadingCommand())
-        /// </sumarry>
-        public override void ShowLoadingCommandHandler(ShowLoadingCommand data)
-        {
-            base.ShowLoadingCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
-        }
-
-        /// <sumarry>
-        // This method is executed when using this.Publish(new HideLoadingCommand())
-        /// </sumarry>
-        public override void HideLoadingCommandHandler(HideLoadingCommand data)
-        {
-            base.HideLoadingCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
-        }
-
-        /// <sumarry>
-        // This method is executed when using this.Publish(new OpenSubScreenCommand())
-        /// </sumarry>
-        public override void OpenSubScreenCommandHandler(OpenSubScreenCommand data)
-        {
-            base.OpenSubScreenCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.HideMainMenuCommandHandler(data);
+            if (MenuRoot.mainMenu != null)
+            {
+                MenuRoot.mainMenu.isActive = false;
+            }
         }
 
         /// <sumarry>
@@ -200,29 +185,113 @@ namespace mvvmMenuSystem
         public override void GoHomeScreenCommandHandler(GoHomeScreenCommand data)
         {
             base.GoHomeScreenCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            if (!string.IsNullOrEmpty(MenuRoot.m_HomeScreenName))
+            {
+                if (MenuRoot.m_CurrentStackScreen.Peek() == MenuRoot.m_HomeScreenName)
+                {
+                    Quit();
+                }
+                else
+                {
+                    OpenScreen(MenuRoot.m_HomeScreenName);
+                }
+            }
+            else
+            {
+                Quit();
+            }
+        }
+
+
+        /// <sumarry>
+        // This method is executed when using this.Publish(new DestoryInactivePanelsCommand())
+        /// </sumarry>
+        public override void DestoryInactivePanelsCommandHandler(DestoryInactivePanelsCommand cmd)
+        {
+            base.DestoryInactivePanelsCommandHandler(cmd);
+            // Screen stacks
+            foreach (var screens in MenuRoot.m_DictScreen)
+            {
+                string sn = screens.Key;
+                if (IsNotInExcept(sn, cmd.exceptList) && (screens.Value != null && screens.Value.Count != 0))
+                {
+                    DestroyPanelsFrom(sn);
+                }
+            }
+
+            // Rest panels
+            string[] restList = new string[MenuRoot.m_DictAllPanel.Keys.Count];
+            MenuRoot.m_DictAllPanel.Keys.CopyTo(restList, 0);
+
+            foreach (var sn in restList)
+            {
+                if (IsNotInExcept(sn, cmd.exceptList))
+                {
+                    DestroyPanelsFrom(sn);
+                }
+            }
+        }
+
+
+        /// <sumarry>
+        // This method is executed when using this.Publish(new PreLoadPanelCommand())
+        /// </sumarry>
+        public override void PreLoadPanelCommandHandler(PreLoadPanelCommand cmd)
+        {
+            base.PreLoadPanelCommandHandler(cmd);
+
+            string pName = cmd.panelName;
+
+            MenuRoot.LoadPanel.OnNext(new LoadPanelCommand()
+            {
+                panelName = pName,
+            });
+
+            MenuRoot.m_OnLoaded.Add(pName, (PanelViewModel pViewModel) =>
+            {
+                // Add to Menus
+                MenuRoot.Panels.Add(pViewModel);
+
+                // Add to dictionary
+                MenuRoot.m_DictAllPanel.Add(pName, pViewModel);
+
+                // DeActive
+                pViewModel.isActive = false;
+
+                // Event
+                OnPanelLoad(pViewModel);
+            });
         }
 
         /// <sumarry>
-        // This method is executed when using this.Publish(new OpenPopupCommand())
+        // This method is executed when using this.Publish(new ShowLoadingCommand())
         /// </sumarry>
-        public override void OpenPopupCommandHandler(OpenPopupCommand data)
+        public override void ShowLoadingCommandHandler(ShowLoadingCommand data)
         {
-            base.OpenPopupCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.ShowLoadingCommandHandler(data);
+            if (MenuRoot.loadingTop == null) return;
+
+            ShieldTopOn(data.alpha);
+            MenuRoot.loadingTop.isActive = true;
+
+            MenuRoot.m_LoadingCount++;
+
+            if (data.timeOut > 0)
+            {
+                StartCoroutine("IEHideLoading", new CallbackData(data.timeOut, data.callBack));
+            }
         }
 
         /// <sumarry>
-        // This method is executed when using this.Publish(new ResetPanelCommand())
+        // This method is executed when using this.Publish(new HideLoadingCommand())
         /// </sumarry>
-        public override void ResetPanelCommandHandler(ResetPanelCommand data)
+        public override void HideLoadingCommandHandler(HideLoadingCommand cmd)
         {
-            base.ResetPanelCommandHandler(data);
-            // Process the commands information. Also, you can publish new events by using the line below.
-            // this.Publish(new AnotherEvent())
+            base.HideLoadingCommandHandler(cmd);
+
+            HideLoading(cmd.isForceHide);
         }
+
         #endregion
 
         #region Private Method

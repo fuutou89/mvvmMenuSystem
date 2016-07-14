@@ -1,3 +1,5 @@
+using UnityEngine.UI;
+
 namespace mvvmMenuSystem {
     using System;
     using System.Collections;
@@ -27,6 +29,46 @@ namespace mvvmMenuSystem {
             // Use this.Shield to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+        }
+
+        public override void colorChanged(Color arg1)
+        {
+            base.colorChanged(arg1);
+            switch (uiType)
+            {
+                case UIType.nGUI:
+#if UI_NGUI
+                    UISprite sprite = this.gameObject.GetComponentInChildren<UISprite>();
+                    sprite.color = arg1;
+#endif
+                    break;
+                case UIType.uGUI:
+#if UI_UGUI
+                    Image image = this.gameObject.GetComponentInChildren<Image>();
+                    image.color = arg1;
+#endif
+                    break;
+            }
+        }
+
+        public override void depthIndexChanged(float arg1)
+        {
+            switch (uiType)
+            {
+                case UIType.nGUI:
+#if UI_NGUI
+                    UIPanel panel = this.gameObject.GetComponentInChildren<UIPanel>();
+                    panel.depth = (int)((arg1 + 1) * MenuConst.DEPTH_DISTANCE);
+#endif
+                    break;
+                case UIType.uGUI:
+#if UI_UGUI
+                    Canvas cv = this.gameObject.GetComponentInChildren<Canvas>();
+                    cv.sortingOrder = ((int)arg1 + 1) * MenuConst.DEPTH_DISTANCE;
+                    cv.worldCamera = CameraHelper.UICamera;
+#endif
+                    break;
+            }
         }
     }
 }

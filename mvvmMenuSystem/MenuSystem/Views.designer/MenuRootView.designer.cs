@@ -45,6 +45,58 @@ namespace mvvmMenuSystem {
         [UnityEngine.HideInInspector()]
         public uFrame.MVVM.Views.ViewBase _shieldTop;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("shieldEmpty")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindshieldEmpty = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("shieldEmpty")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_shieldEmptyonlyWhenChanged")]
+        protected bool _shieldEmptyOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("shieldTop")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindshieldTop = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("shieldTop")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_shieldToponlyWhenChanged")]
+        protected bool _shieldTopOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("loadingTop")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindloadingTop = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("loadingTop")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_loadingToponlyWhenChanged")]
+        protected bool _loadingTopOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("mainMenu")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindmainMenu = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("mainMenu")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_mainMenuonlyWhenChanged")]
+        protected bool _mainMenuOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("LoadPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindLoadPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("Shields")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShields = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("Panels")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindPanels = true;
+        
         public override string DefaultIdentifier {
             get {
                 return "MenuRoot";
@@ -80,6 +132,54 @@ namespace mvvmMenuSystem {
             // Use this.MenuRoot to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindshieldEmpty) {
+                this.BindProperty(this.MenuRoot.shieldEmptyProperty, this.shieldEmptyChanged, _shieldEmptyOnlyWhenChanged);
+            }
+            if (_BindshieldTop) {
+                this.BindProperty(this.MenuRoot.shieldTopProperty, this.shieldTopChanged, _shieldTopOnlyWhenChanged);
+            }
+            if (_BindloadingTop) {
+                this.BindProperty(this.MenuRoot.loadingTopProperty, this.loadingTopChanged, _loadingTopOnlyWhenChanged);
+            }
+            if (_BindmainMenu) {
+                this.BindProperty(this.MenuRoot.mainMenuProperty, this.mainMenuChanged, _mainMenuOnlyWhenChanged);
+            }
+            if (_BindLoadPanel) {
+                this.BindCommandExecuted(this.MenuRoot.LoadPanel, this.LoadPanelExecuted);
+            }
+            if (_BindShields) {
+                this.BindCollection(this.MenuRoot.Shields, this.ShieldsOnAdd, this.ShieldsOnRemove);
+            }
+            if (_BindPanels) {
+                this.BindCollection(this.MenuRoot.Panels, this.PanelsOnAdd, this.PanelsOnRemove);
+            }
+        }
+        
+        public virtual void shieldEmptyChanged(ShieldViewModel arg1) {
+        }
+        
+        public virtual void shieldTopChanged(ShieldViewModel arg1) {
+        }
+        
+        public virtual void loadingTopChanged(PanelViewModel arg1) {
+        }
+        
+        public virtual void mainMenuChanged(MainMenuViewModel arg1) {
+        }
+        
+        public virtual void LoadPanelExecuted(LoadPanelCommand command) {
+        }
+        
+        public virtual void ShieldsOnAdd(ShieldViewModel arg1) {
+        }
+        
+        public virtual void ShieldsOnRemove(ShieldViewModel arg1) {
+        }
+        
+        public virtual void PanelsOnAdd(PanelViewModel arg1) {
+        }
+        
+        public virtual void PanelsOnRemove(PanelViewModel arg1) {
         }
         
         public virtual void ExecuteLoadPanel(LoadPanelCommand command) {

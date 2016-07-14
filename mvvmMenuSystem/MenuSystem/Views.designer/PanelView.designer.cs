@@ -65,6 +65,60 @@ namespace mvvmMenuSystem {
         [UnityEngine.HideInInspector()]
         public Int32 _posIndex;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("PlayPanelAnimation")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindPlayPanelAnimation = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("DestroyPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindDestroyPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("HidePanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindHidePanel = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("ShowPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindShowPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("posIndex")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindposIndex = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("posIndex")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_posIndexonlyWhenChanged")]
+        protected bool _posIndexOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("FocusPanel")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindFocusPanel = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("isActive")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindisActive = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("isActive")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_isActiveonlyWhenChanged")]
+        protected bool _isActiveOnlyWhenChanged;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("SetPanelData")]
+        [UnityEngine.HideInInspector()]
+        public bool _BindSetPanelData = true;
+        
+        [uFrame.MVVM.Attributes.UFToggleGroup("depthIndex")]
+        [UnityEngine.HideInInspector()]
+        public bool _BinddepthIndex = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("depthIndex")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_depthIndexonlyWhenChanged")]
+        protected bool _depthIndexOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -104,6 +158,60 @@ namespace mvvmMenuSystem {
             // Use this.Panel to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_BindPlayPanelAnimation) {
+                this.BindCommandExecuted(this.Panel.PlayPanelAnimation, this.PlayPanelAnimationExecuted);
+            }
+            if (_BindDestroyPanel) {
+                this.BindCommandExecuted(this.Panel.DestroyPanel, this.DestroyPanelExecuted);
+            }
+            if (_BindHidePanel) {
+                this.BindCommandExecuted(this.Panel.HidePanel, this.HidePanelExecuted);
+            }
+            if (_BindShowPanel) {
+                this.BindCommandExecuted(this.Panel.ShowPanel, this.ShowPanelExecuted);
+            }
+            if (_BindposIndex) {
+                this.BindProperty(this.Panel.posIndexProperty, this.posIndexChanged, _posIndexOnlyWhenChanged);
+            }
+            if (_BindFocusPanel) {
+                this.BindCommandExecuted(this.Panel.FocusPanel, this.FocusPanelExecuted);
+            }
+            if (_BindisActive) {
+                this.BindProperty(this.Panel.isActiveProperty, this.isActiveChanged, _isActiveOnlyWhenChanged);
+            }
+            if (_BindSetPanelData) {
+                this.BindCommandExecuted(this.Panel.SetPanelData, this.SetPanelDataExecuted);
+            }
+            if (_BinddepthIndex) {
+                this.BindProperty(this.Panel.depthIndexProperty, this.depthIndexChanged, _depthIndexOnlyWhenChanged);
+            }
+        }
+        
+        public virtual void PlayPanelAnimationExecuted(PlayPanelAnimationCommand command) {
+        }
+        
+        public virtual void DestroyPanelExecuted(DestroyPanelCommand command) {
+        }
+        
+        public virtual void HidePanelExecuted(HidePanelCommand command) {
+        }
+        
+        public virtual void ShowPanelExecuted(ShowPanelCommand command) {
+        }
+        
+        public virtual void posIndexChanged(Int32 arg1) {
+        }
+        
+        public virtual void FocusPanelExecuted(FocusPanelCommand command) {
+        }
+        
+        public virtual void isActiveChanged(Boolean arg1) {
+        }
+        
+        public virtual void SetPanelDataExecuted(SetPanelDataCommand command) {
+        }
+        
+        public virtual void depthIndexChanged(Single arg1) {
         }
         
         public virtual void ExecuteFocusPanel(FocusPanelCommand command) {

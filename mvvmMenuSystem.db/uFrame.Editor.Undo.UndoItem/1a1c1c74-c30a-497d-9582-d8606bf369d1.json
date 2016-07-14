@@ -1,8 +1,0 @@
-{
-	"Identifier":"1a1c1c74-c30a-497d-9582-d8606bf369d1"	, 
-	"Time":"7/13/2016 6:12:25 PM"	, 
-	"Group":181224	, 
-	"DataRecordId":"62a998bd-9fe5-44f2-b30b-f5ac367ee1a0"	, 
-	"Type":1	, 
-	"RecordType":"uFrame.MVVM.PropertiesChildItem, Assembly-CSharp-Editor-firstpass, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"	, 
-	"Data":"{\r\n\t\"RelatedType\":\"5e751e8e-62b5-475b-bb47-4ab96229cf19\"\t, \r\n\t\"Identifier\":\"62a998bd-9fe5-44f2-b30b-f5ac367ee1a0\"\t, \r\n\t\"NodeId\":\"696d8dda-3cbb-43ec-80cd-ec88bbd662fc\"\t, \r\n\t\"Order\":0\t, \r\n\t\"Name\":\"panelData\"}\r\n"}

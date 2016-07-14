@@ -30,6 +30,16 @@ namespace mvvmMenuSystem {
         [UnityEngine.HideInInspector()]
         public Color _color;
         
+        [uFrame.MVVM.Attributes.UFToggleGroup("color")]
+        [UnityEngine.HideInInspector()]
+        public bool _Bindcolor = true;
+        
+        [uFrame.MVVM.Attributes.UFGroup("color")]
+        [UnityEngine.SerializeField()]
+        [UnityEngine.HideInInspector()]
+        [UnityEngine.Serialization.FormerlySerializedAsAttribute("_coloronlyWhenChanged")]
+        protected bool _colorOnlyWhenChanged;
+        
         public override string DefaultIdentifier {
             get {
                 return base.DefaultIdentifier;
@@ -62,6 +72,12 @@ namespace mvvmMenuSystem {
             // Use this.Shield to access the viewmodel.
             // Use this method to subscribe to the view-model.
             // Any designer bindings are created in the base implementation.
+            if (_Bindcolor) {
+                this.BindProperty(this.Shield.colorProperty, this.colorChanged, _colorOnlyWhenChanged);
+            }
+        }
+        
+        public virtual void colorChanged(Color arg1) {
         }
     }
 }
